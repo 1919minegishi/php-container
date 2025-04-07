@@ -22,10 +22,11 @@ services:
       dockerfile: "./web/Dockerfile"
     # ホスト側のポート:コンテナ側のポートを指定
     ports:
-      - "8088:80"
+      - "8080:80"
+#      - "8000:8000"
     # src配下のファイルをコンテナ内の~/var/www/html配下に配置
     volumes:
-      - "../php-api2:/var/www/html"
+      - "../php-api:/var/www/html"
   #      - "./src:/var/www/html"
 
   # PHPサーバー
@@ -44,13 +45,13 @@ services:
       - GROUP_NAME
       - GROUP_ID
     volumes:
-      - "../php-api2:/var/www/html"
+      - "../php-api:/var/www/html"
   #      - "./src:/var/www/html"
 
   #   DBサーバー
   db:
     # コンテナ名
-    container_name: "db"
+    container_name: "my-db"
     # コンテナの作成に使用するDockerfileのパス
     build:
       dockerfile: "./db/Dockerfile"
@@ -60,7 +61,7 @@ services:
     # 環境変数の指定
     environment:
       - "MYSQL_ROOT_PASSWORD=root"
-      - "MYSQL_DATABASE=test-db"
+      - "MYSQL_DATABASE=test"
       - "MYSQL_USER=dev"
       - "MYSQL_PASSWORD=dev"
     # srcディレクトリ内のファイルをコンテナ内の~/var/www/html配下にマウント
